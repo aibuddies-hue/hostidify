@@ -1,7 +1,0 @@
-.inbox
-.leads
-.env*.local
-docs
-assets
-node_modules
-.next

@@ -7,14 +7,13 @@ const __dirname = path.dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  devIndicators: false,
   outputFileTracingRoot: __dirname,
   experimental: {
     webpackBuildWorker: false,
   },
   outputFileTracingExcludes: {
     '*': [
-      './.inbox/**/*',
+      './_inbox/**/*',
       './docs/**/*',
     ],
   },

@@ -1,0 +1,6 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 8L22 14V26L12 32L2 26V14L12 8Z" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M12 15L17 18V24L12 27L7 24V18L12 15Z" fill="white" fill-opacity="0.8"/>
+  <text x="32" y="24" fill="white" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="14" letter-spacing="1.5">BLUHAWK</text>
+  <text x="32" y="33" fill="#A0A0B0" font-family="system-ui, -apple-system, sans-serif" font-weight="500" font-size="8" letter-spacing="2">MARKETING</text>
+</svg>

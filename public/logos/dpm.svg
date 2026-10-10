@@ -1,0 +1,6 @@
+<svg width="190" height="40" viewBox="0 0 190 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="9" width="22" height="22" rx="4" stroke="white" stroke-width="2.2"/>
+  <path d="M12 15L19 20L12 25V15Z" fill="white"/>
+  <text x="34" y="23" fill="white" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="14" letter-spacing="1.5">DPM</text>
+  <text x="76" y="23" fill="#A0A0B0" font-family="system-ui, -apple-system, sans-serif" font-weight="500" font-size="12" letter-spacing="1">ENTERTAINMENT</text>
+</svg>

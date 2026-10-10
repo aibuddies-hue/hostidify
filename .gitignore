@@ -33,10 +33,13 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 
-# Raw client inbox (large media, never committed)
+# Large raw media & references from inbox (prevent GitHub 100MB file limit)
+_inbox/references/
+_inbox/videos/
 .inbox/
-
-# Local lead log (personal data)
-.leads/
 *.mov
+public/new files/
+*.textClipping
+.claude/
+
 

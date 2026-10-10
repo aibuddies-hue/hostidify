@@ -1,0 +1,5 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14 12C11 9 6.5 10 5.2 13.5C3.5 18 10 24 14 27C18 24 24.5 18 22.8 13.5C21.5 10 17 9 14 12Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="14" cy="18" r="2.5" fill="white"/>
+  <text x="32" y="24" fill="white" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="13" letter-spacing="1">HEART TO MIND</text>
+</svg>
