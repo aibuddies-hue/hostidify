@@ -1,7 +1,28 @@
 [
-  { "name": "Bluhawk Marketing" },
-  { "name": "AI Buddies" },
-  { "name": "DPM Entertainment" },
-  { "name": "Heart to Mind" },
-  { "name": "Host Dhanraj" }
+  {
+    "name": "Blue Hawk",
+    "logo": "/logos/bluhawk.png",
+    "showName": true
+  },
+  {
+    "name": "InnovateX Media",
+    "logo": "/logos/logo-1.png",
+    "showName": false
+  },
+  {
+    "name": "AI Buddies",
+    "showName": true
+  },
+  {
+    "name": "DPM Entertainment",
+    "showName": true
+  },
+  {
+    "name": "Heart to Mind",
+    "showName": true
+  },
+  {
+    "name": "Host Dhanraj",
+    "showName": true
+  }
 ]

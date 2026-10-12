@@ -10,22 +10,29 @@ import { useAuditModal } from "@/context/AuditModalContext";
 
 const rotatingWords = ["real estate", "personal brands", "e-commerce", "AI content"];
 
-type CategoryKey = "shortForm" | "ads";
+type CategoryKey = "shortForm" | "longForm" | "ads";
 type TabKey = "all" | CategoryKey;
 
 const categories: { key: CategoryKey; label: string }[] = [
   { key: "shortForm", label: "Short-form edits" },
+  { key: "longForm", label: "YouTube / Long-form" },
   { key: "ads", label: "Ad videos" },
 ];
 
+const rawData = portfolioData as {
+  shortForm?: PortfolioVideoItem[];
+  longForm?: PortfolioVideoItem[];
+  ads?: PortfolioVideoItem[];
+};
+
 const byCategory: Record<CategoryKey, PortfolioVideoItem[]> = {
-  shortForm: portfolioData.shortForm,
-  ads: portfolioData.ads,
+  shortForm: rawData.shortForm || [],
+  longForm: rawData.longForm || [],
+  ads: rawData.ads || [],
 };
 const allVideos = categories.flatMap((c) => byCategory[c.key]);
 
 // A category tab shows only with >= 2 videos; the tab row shows only if 2+ categories qualify.
-// Before/After stays hidden until pairs exist (it needs its own raw/edit player).
 const visibleCategories = categories.filter((c) => byCategory[c.key].length >= 2);
 const tabs: { key: TabKey; label: string }[] =
   visibleCategories.length >= 2 ? [{ key: "all", label: "All" }, ...visibleCategories] : [];
@@ -69,7 +76,7 @@ export function PortfolioSection() {
         title="Watch our work"
         sub={
           <>
-            Reels we&apos;ve edited for <RotatingWord />
+            Reels and videos we&apos;ve edited for <RotatingWord />
           </>
         }
       />
@@ -110,31 +117,44 @@ export function PortfolioSection() {
             (items.length <= 6 ? "lg:justify-center" : "")
           }
         >
-          {items.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => setSelected(item)}
-              aria-label="Play video"
-              className="group relative aspect-[9/16] w-[220px] shrink-0 cursor-pointer snap-start overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#14141C] transition-colors hover:border-[#A24BFF]/60 md:w-[240px] lg:w-[calc((100%-120px)/6)]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.posterUrl}
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <span className="absolute inset-0 flex items-center justify-center">
-                <span className="bg-brand-gradient flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full shadow-xl transition-transform group-hover:scale-110">
-                  <Play className="ml-0.5 h-6 w-6 fill-white text-white" aria-hidden />
+          {items.map((item) => {
+            const isLong = item.type === "longForm";
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setSelected(item)}
+                aria-label={`Play ${item.caption || "video"}`}
+                className={
+                  "group relative shrink-0 cursor-pointer snap-start overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#14141C] transition-colors hover:border-[#A24BFF]/60 " +
+                  (isLong
+                    ? "aspect-video w-[280px] md:w-[360px]"
+                    : "aspect-[9/16] w-[220px] md:w-[240px] lg:w-[calc((100%-120px)/6)]")
+                }
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.posterUrl}
+                  alt={item.caption || "Video poster"}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                  <span className="bg-brand-gradient flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full shadow-xl transition-transform group-hover:scale-110">
+                    <Play className="ml-0.5 h-6 w-6 fill-white text-white" aria-hidden />
+                  </span>
                 </span>
-              </span>
-            </button>
-          ))}
+                {item.caption && (
+                  <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-3 pt-6 text-left text-xs font-semibold text-white/90 line-clamp-2">
+                    {item.caption}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        {items.length > 6 && (
+        {items.length > 5 && (
           <>
             <button
               type="button"

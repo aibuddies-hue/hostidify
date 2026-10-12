@@ -76,7 +76,8 @@ export const site = {
     clients: "100+", // from the copy doc: "I've helped 100+ businesses and creators"
   },
   links: {
-    calcom: process.env.NEXT_PUBLIC_CALCOM_LINK || "hosteditify/content-audit",
+    calcom: process.env.NEXT_PUBLIC_CALCOM_LINK || "hosteditify-n0dlbr/free-content-audit",
+    calcomUrl: "https://cal.com/hosteditify-n0dlbr/free-content-audit",
     // null when not configured: never link to a placeholder number
     whatsapp: whatsappNumber || null,
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@hosteditify.com",

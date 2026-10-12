@@ -1,32 +1,57 @@
 {
   "shortForm": [
     {
+      "id": "shortForm-sequence-02",
+      "type": "shortForm",
+      "videoUrl": "/videos/work/short-form/sequence-02.mp4",
+      "posterUrl": "/posters/work/sequence-02.jpg",
+      "caption": "Sequence 02 · Dynamic Talking Head & Motion Graphics"
+    },
+    {
       "id": "shortForm-ai-cinematic-reel",
       "type": "shortForm",
       "videoUrl": "/videos/work/short-form/ai-cinematic-reel.mp4",
       "posterUrl": "/posters/work/ai-cinematic-reel.jpg",
-      "caption": ""
+      "caption": "AI Cinematic Reel"
     },
     {
       "id": "shortForm-founder-reel-1",
       "type": "shortForm",
       "videoUrl": "/videos/work/short-form/founder-reel-1.mp4",
       "posterUrl": "/posters/work/founder-reel-1.jpg",
-      "caption": ""
+      "caption": "Founder Story Reel"
     },
     {
       "id": "shortForm-founder-reel-2",
       "type": "shortForm",
       "videoUrl": "/videos/work/short-form/founder-reel-2.mp4",
       "posterUrl": "/posters/work/founder-reel-2.jpg",
-      "caption": ""
+      "caption": "Brand Hook Reel"
     },
     {
       "id": "shortForm-founder-reel-3",
       "type": "shortForm",
       "videoUrl": "/videos/work/short-form/founder-reel-3.mp4",
       "posterUrl": "/posters/work/founder-reel-3.jpg",
-      "caption": ""
+      "caption": "Viral Talking Head"
+    }
+  ],
+  "longForm": [
+    {
+      "id": "longForm-yt-market-crash",
+      "type": "longForm",
+      "youtubeId": "1flCTwGxd20",
+      "videoUrl": "https://www.youtube.com/watch?v=1flCTwGxd20",
+      "posterUrl": "/posters/work/yt-1flCTwGxd20.jpg",
+      "caption": "Market Crash Documentary · History Repeats Itself"
+    },
+    {
+      "id": "longForm-yt-ai-businesses",
+      "type": "longForm",
+      "youtubeId": "GP26owXPaU4",
+      "videoUrl": "https://www.youtube.com/watch?v=GP26owXPaU4",
+      "posterUrl": "/posters/work/yt-GP26owXPaU4.jpg",
+      "caption": "AI Business Model Breakdown · 5 Ways to Earn"
     }
   ],
   "ads": [
@@ -35,14 +60,14 @@
       "type": "ads",
       "videoUrl": "/videos/work/ads/ai-product-ad.mp4",
       "posterUrl": "/posters/work/ai-product-ad.jpg",
-      "caption": ""
+      "caption": "AI Product Showcase"
     },
     {
       "id": "ads-motion-graphics-ad",
       "type": "ads",
       "videoUrl": "/videos/work/ads/motion-graphics-ad.mp4",
       "posterUrl": "/posters/work/motion-graphics-ad.jpg",
-      "caption": ""
+      "caption": "High-Paced Motion Ad"
     }
   ],
   "beforeAfter": []

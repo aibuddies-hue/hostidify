@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "review-1",
+    "src": "/reviews/review-1.jpeg",
+    "name": "Verified Creator",
+    "business": "Agency Partner",
+    "caption": "I just received videos, and I must say you won my heart with your edits. Thank you for giving me the exact kind of edits I was expecting."
+  },
+  {
+    "id": "review-2",
+    "src": "/reviews/review-2.jpeg",
+    "name": "Personal Brand Founder",
+    "business": "Reels & Ads Client",
+    "caption": "Yes, I watched the edit and I like it, storytelling, and motion graphic your team use I loved it 🔥"
+  },
+  {
+    "id": "review-3",
+    "src": "/reviews/review-3.jpeg",
+    "name": "Growth Marketer",
+    "business": "Content Creator",
+    "caption": "Bro just check the videos you sent, and honestly they are beyond my expectation 💯 Videos are engaging and hooks are stronger."
+  }
+]

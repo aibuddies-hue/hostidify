@@ -4,25 +4,30 @@ import brandsData from "@/data/brands.json";
 
 interface Brand {
   name: string;
-  /** Path under public/, e.g. "/logos/bluhawk.png". Without it the tile shows the brand name. */
+  /** Path under public/, e.g. "/logos/bluhawk.png". */
   logo?: string;
+  /** Whether to show text name alongside logo. Default true if no logo. */
+  showName?: boolean;
 }
 
 const brands: Brand[] = brandsData;
 
 function BrandTile({ brand }: { brand: Brand }) {
+  const showText = brand.showName ?? !brand.logo;
+
   return (
-    <div className="flex h-[60px] w-[110px] shrink-0 items-center justify-center rounded-[14px] bg-white px-3 md:h-[72px] md:w-[140px]">
+    <div className="flex h-[56px] min-w-[130px] shrink-0 items-center justify-center gap-2.5 rounded-[16px] bg-white px-4 py-2 shadow-sm transition-transform hover:scale-[1.03] md:h-[68px] md:min-w-[160px] md:px-5">
       {brand.logo ? (
         <Image
           src={brand.logo}
           alt={brand.name}
-          width={112}
+          width={120}
           height={44}
           className="max-h-9 w-auto object-contain md:max-h-11"
         />
-      ) : (
-        <span className="text-center text-[13px] leading-tight font-semibold text-[#14141C] md:text-sm">
+      ) : null}
+      {showText && (
+        <span className="text-center text-[13px] font-bold tracking-tight text-[#14141C] md:text-sm whitespace-nowrap">
           {brand.name}
         </span>
       )}
