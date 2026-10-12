@@ -3,9 +3,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** primary = gradient pill, secondary = ghost pill. Both are 52px tall everywhere. */
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** primary = gradient pill, secondary = ghost pill. */
   variant?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
+  ctaPosition?: string;
+  magnetic?: boolean;
   children: React.ReactNode;
 }
 
@@ -19,7 +22,16 @@ const variants = {
     "bg-transparent border border-white/20 hover:border-white/45 hover:bg-white/[0.04]",
 };
 
-export function Button({ variant = "primary", className, children, type = "button", ...props }: ButtonProps) {
+export function Button({
+  variant = "primary",
+  size,
+  ctaPosition,
+  magnetic,
+  className,
+  children,
+  type = "button",
+  ...props
+}: ButtonProps) {
   return (
     <button type={type} className={cn(base, variants[variant], className)} {...props}>
       {children}

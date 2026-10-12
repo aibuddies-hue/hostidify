@@ -4,14 +4,23 @@ import { cn } from "@/lib/utils";
 export function Section({
   id,
   className,
+  alt = false,
   children,
 }: {
   id?: string;
   className?: string;
+  alt?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className={cn("relative py-16 sm:py-20 md:py-28 overflow-hidden", className)}>
+    <section
+      id={id}
+      className={cn(
+        "relative py-16 sm:py-20 md:py-28 overflow-hidden",
+        alt ? "bg-[#0E0E17]" : "bg-[#0A0A0F]",
+        className
+      )}
+    >
       <div className="max-w-[1240px] mx-auto px-5 sm:px-8">{children}</div>
     </section>
   );
