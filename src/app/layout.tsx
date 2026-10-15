@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/styles/globals.css";
 import { site } from "@/lib/site.config";
-import { SmoothScrollProvider } from "@/components/global/SmoothScrollProvider";
 import { TopBar } from "@/components/global/TopBar";
 import { Navbar } from "@/components/global/Navbar";
 import { FooterSection } from "@/components/sections/FooterSection";
@@ -130,7 +129,6 @@ export default function RootLayout({
       <body className="relative min-h-screen bg-[#0A0A0F] font-sans text-white selection:bg-[#A24BFF]/30 selection:text-white">
         <div className="film-grain" />
 
-        <SmoothScrollProvider>
           <AuditModalProvider>
             <TopBar />
             <Navbar />
@@ -141,7 +139,6 @@ export default function RootLayout({
             <StickyMobileCta />
             <AuditModalContainer />
           </AuditModalProvider>
-        </SmoothScrollProvider>
 
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}

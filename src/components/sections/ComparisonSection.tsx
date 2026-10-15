@@ -95,7 +95,7 @@ export function ComparisonSection() {
               onClick={() => setAlt(a.key)}
               className={
                 "h-10 cursor-pointer rounded-full px-2 text-[13px] leading-tight font-semibold transition-colors " +
-                (alt === a.key ? "bg-[#A24BFF] text-white" : "text-[#A0A0B0]")
+                (alt === a.key ? "bg-[#8434D4] text-white" : "text-[#A0A0B0]")
               }
             >
               {a.label}
@@ -114,7 +114,7 @@ export function ComparisonSection() {
                     <CellValue value={row[alt]} />
                   </div>
                 </div>
-                <div className="rounded-xl bg-[#A24BFF]/[0.08] p-3">
+                <div className="rounded-xl bg-[#8434D4]/[0.08] p-3">
                   <p className="mb-1 text-xs font-semibold text-white">Host Editify</p>
                   <div className="type-small">
                     <CellValue value={row.hostEditify} highlight />
@@ -137,7 +137,7 @@ export function ComparisonSection() {
                   {a.label}
                 </th>
               ))}
-              <th className="type-small w-[20%] bg-[#A24BFF]/[0.08] px-6 py-5 font-bold text-white">
+              <th className="type-small w-[20%] bg-[#8434D4]/[0.08] px-6 py-5 font-bold text-white">
                 Host Editify
               </th>
             </tr>
@@ -151,7 +151,7 @@ export function ComparisonSection() {
                     <CellValue value={row[a.key]} />
                   </td>
                 ))}
-                <td className="type-small bg-[#A24BFF]/[0.08] px-6 py-5">
+                <td className="type-small bg-[#8434D4]/[0.08] px-6 py-5">
                   <CellValue value={row.hostEditify} highlight />
                 </td>
               </tr>

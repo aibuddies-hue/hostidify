@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { ArrowRight, Clock, ShieldCheck, Video } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { site } from "@/lib/site.config";
 import { useAuditModal } from "@/context/AuditModalContext";
 
 export function HeroSection() {
@@ -17,16 +15,7 @@ export function HeroSection() {
         {/* Soft centered multi-color aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[850px] md:w-[1000px] h-[450px] sm:h-[650px] bg-gradient-to-tr from-[#3B6BFF]/20 via-[#A24BFF]/25 to-[#FF3D8B]/20 rounded-full blur-[110px] sm:blur-[140px] pointer-events-none" />
 
-        {/* Cinematic light texture image if present */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] max-w-[1300px] aspect-[16/9] opacity-30 mix-blend-screen filter blur-xl">
-          <Image
-            src="/generated/hero-light-field.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 1300px"
-          />
-        </div>
+        <div className="hero-light-field absolute inset-0" />
 
         {/* Subtle dark gradient vignette */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/60 via-transparent to-[#0A0A0F]" />

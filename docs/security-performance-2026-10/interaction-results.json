@@ -1,0 +1,77 @@
+[
+  {
+    "width": 1440,
+    "passed": true,
+    "noVideoBeforePlay": true,
+    "playback": [
+      {
+        "src": "/videos/work/short-form/luxury-real-estate.mp4",
+        "duration": 85.184,
+        "playing": true
+      }
+    ],
+    "errors": [],
+    "localFailures": [],
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "passed": true,
+    "noVideoBeforePlay": true,
+    "playback": [
+      {
+        "src": "/videos/work/short-form/luxury-real-estate.mp4",
+        "duration": 85.184,
+        "playing": true
+      },
+      {
+        "src": "/videos/work/ads/ai-skills-ad-01.mp4",
+        "duration": 36.608,
+        "playing": true
+      },
+      {
+        "src": "/videos/work/ads/ai-workshop-ad-03.mp4",
+        "duration": 24.32,
+        "playing": true
+      },
+      {
+        "src": "/videos/work/ads/ai-industry-ad-06.mp4",
+        "duration": 49.45,
+        "playing": true
+      }
+    ],
+    "errors": [],
+    "localFailures": [],
+    "overflow": false
+  },
+  {
+    "width": 320,
+    "passed": true,
+    "noVideoBeforePlay": true,
+    "playback": [
+      {
+        "src": "/videos/work/short-form/luxury-real-estate.mp4",
+        "duration": 85.184,
+        "playing": true
+      }
+    ],
+    "errors": [],
+    "localFailures": [],
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "passed": true,
+    "noVideoBeforePlay": true,
+    "playback": [
+      {
+        "src": "/videos/work/short-form/luxury-real-estate.mp4",
+        "duration": 85.184,
+        "playing": true
+      }
+    ],
+    "errors": [],
+    "localFailures": [],
+    "overflow": false
+  }
+]

@@ -24,16 +24,19 @@ const variants = {
 
 export function Button({
   variant = "primary",
-  size,
+  size: _size,
   ctaPosition,
-  magnetic,
+  magnetic: _magnetic,
   className,
   children,
   type = "button",
   ...props
 }: ButtonProps) {
+  // Legacy styling props are intentionally consumed instead of passed to the DOM.
+  void _size;
+  void _magnetic;
   return (
-    <button type={type} className={cn(base, variants[variant], className)} {...props}>
+    <button type={type} className={cn(base, variants[variant], className)} data-cta-position={ctaPosition} {...props}>
       {children}
     </button>
   );

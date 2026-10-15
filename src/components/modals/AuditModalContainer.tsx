@@ -1,10 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useAuditModal } from "@/context/AuditModalContext";
-import { AuditModal } from "./AuditModal";
+
+const AuditModal = dynamic(() => import("./AuditModal").then((module) => module.AuditModal), { ssr: false });
 
 export function AuditModalContainer() {
   const { isOpen, closeAuditModal } = useAuditModal();
-  return <AuditModal isOpen={isOpen} onClose={closeAuditModal} />;
+  const [hasOpened, setHasOpened] = useState(false);
+  useEffect(() => { if (isOpen) setHasOpened(true); }, [isOpen]);
+  // Keep progress after first use, but do not download form/calendar code on page load.
+  return isOpen || hasOpened ? <AuditModal isOpen={isOpen} onClose={closeAuditModal} /> : null;
 }

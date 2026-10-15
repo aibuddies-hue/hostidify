@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState } from "react";
 import { Award, X } from "lucide-react";
 import rawReviews from "@/data/reviews.json";
@@ -56,10 +57,12 @@ export function ProofSection() {
             >
               {/* WhatsApp Screenshot Container: Fixed height with object-contain so NO cropping happens */}
               <div className="relative w-full h-[320px] sm:h-[350px] md:h-[370px] bg-[#0A0A10] rounded-xl flex items-center justify-center p-2.5 overflow-hidden border border-white/[0.04]">
-                <img
+                <Image
+                  fill
+                  sizes="(max-width: 767px) 90vw, 370px"
                   src={rev.src}
                   alt={rev.caption || rev.name || "Client WhatsApp review"}
-                  className="max-h-full max-w-full w-auto h-auto object-contain mx-auto rounded-lg transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="object-contain p-2.5 rounded-lg transition-transform duration-300 group-hover:scale-[1.03]"
                   loading="lazy"
                 />
                 {/* Subtle zoom indicator on hover */}
@@ -73,7 +76,7 @@ export function ProofSection() {
               {/* Caption & Trust Proof */}
               <div className="pt-3.5 px-1.5 flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#A24BFF]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#BD83FF]">
                     {rev.business || "Verified Client"}
                   </span>
                   <div className="flex text-amber-400 gap-0.5" aria-hidden="true">
@@ -84,7 +87,7 @@ export function ProofSection() {
                 </div>
                 {rev.caption && (
                   <p className="text-xs sm:text-[13px] text-white/90 font-medium leading-snug">
-                    "{rev.caption}"
+                    &quot;{rev.caption}&quot;
                   </p>
                 )}
               </div>
@@ -111,6 +114,8 @@ export function ProofSection() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative max-w-full max-h-[80vh] flex items-center justify-center p-2 bg-[#14141C] border border-white/15 rounded-2xl shadow-2xl overflow-hidden">
+              {/* Original-size screenshot for legible expanded review. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={activeReview.src}
                 alt={activeReview.caption || "Client review full size"}
@@ -119,7 +124,7 @@ export function ProofSection() {
             </div>
             {activeReview.caption && (
               <p className="mt-4 text-xs sm:text-sm text-white/90 font-semibold text-center bg-black/70 px-5 py-2 rounded-full border border-white/15 backdrop-blur-sm">
-                "{activeReview.caption}"
+                &quot;{activeReview.caption}&quot;
               </p>
             )}
           </div>

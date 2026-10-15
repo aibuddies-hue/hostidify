@@ -43,3 +43,6 @@ public/new files/
 .claude/
 
 
+
+# Private lead recovery data
+.leads/

@@ -30,10 +30,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "site-header sticky top-0 z-40 w-full transition-all duration-300",
+        "site-header sticky top-0 z-40 w-full py-4 md:py-5 transition-[background-color,box-shadow,border-color] duration-300",
         scrolled
-          ? "py-3 bg-[#0A0A0F]/95 backdrop-blur-xl border-b border-white/[0.12] shadow-[0_10px_35px_rgba(0,0,0,0.7)]"
-          : "py-4 md:py-5 bg-[#0A0A0F]/85 backdrop-blur-md border-b border-white/[0.08]"
+          ? "bg-[#0A0A0F]/95 backdrop-blur-xl border-b border-white/[0.12] shadow-[0_10px_35px_rgba(0,0,0,0.7)]"
+          : "bg-[#0A0A0F]/85 backdrop-blur-md border-b border-white/[0.08]"
       )}
     >
       <div className="container-page flex items-center justify-between gap-3">

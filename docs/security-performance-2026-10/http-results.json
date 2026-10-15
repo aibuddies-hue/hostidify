@@ -1,0 +1,90 @@
+[
+  {
+    "name": "homepage",
+    "status": 200
+  },
+  {
+    "name": "foreign origin blocked",
+    "status": 403
+  },
+  {
+    "name": "content type required",
+    "status": 415
+  },
+  {
+    "name": "malformed JSON",
+    "status": 400
+  },
+  {
+    "name": "streamed size cap",
+    "status": 413
+  },
+  {
+    "name": "field lengths limited",
+    "status": 400
+  },
+  {
+    "name": "missing production webhook fails closed",
+    "status": 503
+  },
+  {
+    "name": "rate-limit allowance 0",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 1",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 2",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 3",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 4",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 5",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 6",
+    "status": 400
+  },
+  {
+    "name": "rate-limit allowance 7",
+    "status": 400
+  },
+  {
+    "name": "rate limit enforced",
+    "status": 429
+  },
+  {
+    "name": "remote image proxy blocked",
+    "status": 400
+  },
+  {
+    "name": "/privacy",
+    "status": 200
+  },
+  {
+    "name": "/terms",
+    "status": 200
+  },
+  {
+    "name": "/thank-you",
+    "status": 200
+  },
+  {
+    "name": "/robots.txt",
+    "status": 200
+  },
+  {
+    "name": "/sitemap.xml",
+    "status": 200
+  }
+]

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import portfolioData from "@/data/portfolio.json";
@@ -127,10 +128,10 @@ export function PortfolioSection() {
             className={`portfolio-card group ${item.type === "longForm" ? "portfolio-card-long" : ""}`}
           >
             {/* The MP4/YouTube player is created only after the visitor presses play. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={item.posterUrl}
               alt={item.caption || "Video poster"}
+              sizes={item.type === "longForm" ? "(max-width: 639px) 82vw, 400px" : "(max-width: 639px) 72vw, 260px"}
               loading="lazy"
               decoding="async"
               width={item.type === "longForm" ? 640 : 720}
@@ -145,13 +146,11 @@ export function PortfolioSection() {
           </button>
         ))}
       </div>
-      {(scroll.left || scroll.right) && (
-        <div className="portfolio-controls">
+      <div className="portfolio-controls" style={{ visibility: scroll.left || scroll.right ? "visible" : "hidden" }}>
           <button type="button" onClick={() => scrollBy(-1)} disabled={!scroll.left} aria-label="Scroll left" aria-controls="work-videos" className="carousel-arrow"><ChevronLeft className="h-5 w-5" aria-hidden /></button>
           <div className="carousel-progress" aria-hidden><span style={{ transform: `translateX(${scroll.progress * 60}px)` }} /></div>
           <button type="button" onClick={() => scrollBy(1)} disabled={!scroll.right} aria-label="Scroll right" aria-controls="work-videos" className="carousel-arrow"><ChevronRight className="h-5 w-5" aria-hidden /></button>
-        </div>
-      )}
+      </div>
       <div className="mt-10 flex justify-center">
         <Button onClick={() => openAuditModal("portfolio")}>Book My Free Content Audit<ArrowRight className="h-4 w-4" aria-hidden /></Button>
       </div>

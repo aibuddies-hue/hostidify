@@ -1,0 +1,32 @@
+[
+  {
+    "path": "public/logos/dpm-hd.webp",
+    "before": 411314,
+    "after": 27224
+  },
+  {
+    "path": "public/logos/heart-to-mind-hd.webp",
+    "before": 800632,
+    "after": 15596
+  },
+  {
+    "path": "public/brand/logo-transparent.png",
+    "before": 417624,
+    "after": 38662
+  },
+  {
+    "path": "public/reviews/review-1.jpeg",
+    "before": 317327,
+    "after": 97273
+  },
+  {
+    "path": "public/reviews/review-2.jpeg",
+    "before": 166854,
+    "after": 163955
+  },
+  {
+    "path": "public/reviews/review-3.jpeg",
+    "before": 138102,
+    "after": 134841
+  }
+]

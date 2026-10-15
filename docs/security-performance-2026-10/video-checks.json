@@ -1,0 +1,137 @@
+[
+  {
+    "file": "public/videos/work/ads/ai-skills-ad-01.mp4",
+    "duration": "36.608000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/ads/ai-workshop-ad-03.mp4",
+    "duration": "24.320000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/ads/ai-product-ad.mp4",
+    "duration": "52.245000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/ads/motion-graphics-ad.mp4",
+    "duration": "5.973000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 406
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/ads/ai-industry-ad-06.mp4",
+    "duration": "49.450000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/short-form/ai-cinematic-reel.mp4",
+    "duration": "47.266667",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/short-form/luxury-real-estate.mp4",
+    "duration": "85.184000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/short-form/sequence-02.mp4",
+    "duration": "60.437000",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  },
+  {
+    "file": "public/videos/work/short-form/founder-reel-3.mp4",
+    "duration": "18.135011",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "decoded": true
+  }
+]

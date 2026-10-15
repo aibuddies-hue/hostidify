@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { consumeLeadAttempt, isAllowedLeadOrigin, LeadBodyTooLarge, readLeadJson } from "@/lib/lead-security";
 import { promises as fs } from "fs";
 import os from "os";
 import path from "path";
@@ -11,19 +12,15 @@ function sha256(value: string): string {
   return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
 }
 
-/**
- * Fallback when the webhook is missing or fails: print the lead to the server log (visible in
- * host logs) and append it to an NDJSON file (.leads/ locally, the temp dir in production).
- */
+/** Keep recovery data private; never print contact details or credentials to logs. */
 async function logLeadLocally(lead: Record<string, unknown>, reason: string) {
-  console.warn(`[lead] ${reason}. Lead logged here:`, JSON.stringify(lead));
-  const dir = process.env.NODE_ENV === "production" ? os.tmpdir() : path.join(process.cwd(), ".leads");
-  try {
-    await fs.mkdir(dir, { recursive: true });
-    await fs.appendFile(path.join(dir, "leads.ndjson"), JSON.stringify(lead) + "\n");
-  } catch (err) {
-    console.error("[lead] could not write local lead log:", err);
-  }
+  console.warn(`[lead] ${reason}; saving private recovery record`);
+  const dir = process.env.LEAD_BACKUP_DIR || (process.env.NODE_ENV === "production"
+    ? path.join(os.tmpdir(), "host-editify-leads") : path.join(process.cwd(), ".leads"));
+  await fs.mkdir(dir, { recursive: true, mode: 0o700 });
+  const file = path.join(dir, "leads.ndjson");
+  await fs.appendFile(file, JSON.stringify(lead) + "\n", { mode: 0o600 });
+  await fs.chmod(file, 0o600);
 }
 
 async function sendToN8n(url: string, lead: Record<string, unknown>) {
@@ -72,9 +69,9 @@ async function sendToMetaCapi(
     ],
     test_event_code: process.env.META_TEST_EVENT_CODE || undefined,
   };
-  const res = await fetch(`https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${token}`, {
+  const res = await fetch(`https://graph.facebook.com/v21.0/${pixelId}/events`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify(payload),
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
@@ -82,10 +79,18 @@ async function sendToMetaCapi(
 }
 
 export async function POST(req: NextRequest) {
+  if (!isAllowedLeadOrigin(req)) return NextResponse.json({ error: "Origin not allowed" }, { status: 403 });
+  if (req.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
+    return NextResponse.json({ error: "Expected application/json" }, { status: 415 });
+  }
+  const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+  const retryAfter = consumeLeadAttempt(clientIp);
+  if (retryAfter) return NextResponse.json({ error: "Too many attempts. Please try again shortly." }, { status: 429, headers: { "Retry-After": String(retryAfter) } });
   let body: unknown;
   try {
-    body = await req.json();
-  } catch {
+    body = await readLeadJson(req);
+  } catch (error) {
+    if (error instanceof LeadBodyTooLarge) return NextResponse.json({ error: "Request too large" }, { status: 413 });
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
@@ -96,14 +101,19 @@ export async function POST(req: NextRequest) {
 
   // Qualification is decided here from the budget, not trusted from the browser
   const lead = { ...parsed.data, qualified: isQualifiedBudget(parsed.data.budgetRange) };
-  const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "";
-  const userAgent = req.headers.get("user-agent") || "";
-  const eventId = lead.eventId || `lead_${Date.now()}`;
+  const userAgent = (req.headers.get("user-agent") || "").slice(0, 512);
+  const eventId = lead.eventId || `lead_${crypto.randomUUID()}`;
   const record = { ...lead, eventId, clientIp, userAgent, receivedAt: new Date().toISOString() };
 
   const n8nUrl = process.env.N8N_LEAD_WEBHOOK_URL;
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const capiToken = process.env.META_CAPI_TOKEN;
+
+  // Do not report success for production leads without a delivery destination.
+  if (!n8nUrl && process.env.NODE_ENV === "production") {
+    console.error("[lead] delivery webhook is not configured");
+    return NextResponse.json({ error: "Booking is temporarily unavailable. Please try again shortly." }, { status: 503 });
+  }
 
   // Wait for every delivery (each capped at 5s) before answering, so nothing is dropped mid-flight
   const [n8nResult, capiResult] = await Promise.allSettled([
@@ -114,13 +124,13 @@ export async function POST(req: NextRequest) {
   ]);
 
   if (capiResult.status === "rejected") {
-    console.error("[lead] Meta CAPI failed:", capiResult.reason);
+    console.error("[lead] Meta CAPI delivery failed");
   }
 
   if (n8nResult.status === "rejected") {
     // The webhook failed: keep a copy of the lead in the logs and tell the visitor to retry
-    console.error("[lead] n8n webhook failed:", n8nResult.reason);
-    await logLeadLocally(record, "n8n webhook failed");
+    console.error("[lead] n8n webhook delivery failed");
+    try { await logLeadLocally(record, "n8n webhook failed"); } catch { console.error("[lead] private recovery write failed"); }
     return NextResponse.json({ error: "Could not deliver lead" }, { status: 502 });
   }
 

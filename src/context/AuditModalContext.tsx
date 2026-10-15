@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { trackCtaClick, trackFormOpen } from "@/lib/tracking";
+import { captureAndStoreUtm, trackCtaClick, trackFormOpen } from "@/lib/tracking";
 
 interface AuditModalContextType {
   isOpen: boolean;
@@ -17,6 +17,7 @@ const AuditModalContext = createContext<AuditModalContextType>({
 
 export function AuditModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => { captureAndStoreUtm(); }, []);
 
   const openAuditModal = useCallback((position: string = "unknown") => {
     trackCtaClick(position, "Book My Free Content Audit");

@@ -426,3 +426,11 @@ select option {
   color: #fff;
   background: #14141C;
 }
+
+/* Native scrolling avoids an always-running animation loop on mobile. */
+html { scroll-behavior: smooth; }
+.hero-light-field {
+  background: radial-gradient(ellipse at 35% 55%, #335caa26, transparent 45%),
+    radial-gradient(ellipse at 65% 55%, #913a9a24, transparent 45%);
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
