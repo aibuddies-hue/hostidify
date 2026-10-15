@@ -1,0 +1,28 @@
+[
+  {
+    "width": 1440,
+    "production": true,
+    "normalMotion": true,
+    "modalScrollLock": true,
+    "videoToAudit": true,
+    "sticky": {
+      "hidden": "false",
+      "height": 0
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "width": 390,
+    "production": true,
+    "normalMotion": true,
+    "modalScrollLock": true,
+    "videoToAudit": true,
+    "sticky": {
+      "hidden": "false",
+      "height": 76
+    },
+    "errors": [],
+    "failed": []
+  }
+]

@@ -11,18 +11,33 @@
   },
   {
     "name": "AI Buddies",
-    "showName": true
+    "showName": false,
+    "logo": "/logos/ai-buddies.jpeg",
+    "presentation": "square",
+    "dark": true
   },
   {
     "name": "DPM Entertainment",
-    "showName": true
+    "showName": false,
+    "logo": "/logos/dpm-hd.webp",
+    "presentation": "portrait",
+    "width": 1254,
+    "height": 1254
   },
   {
     "name": "Heart to Mind",
-    "showName": true
+    "showName": true,
+    "logo": "/logos/heart-to-mind-hd.webp",
+    "presentation": "symbol",
+    "width": 1254,
+    "height": 1254
   },
   {
     "name": "Host Dhanraj",
-    "showName": true
+    "showName": false,
+    "logo": "/logos/host-dhanraj.webp",
+    "dark": true,
+    "width": 720,
+    "height": 241
   }
 ]

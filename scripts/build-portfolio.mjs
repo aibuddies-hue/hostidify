@@ -6,7 +6,7 @@
 //
 // Each video lives in exactly one folder, so it appears in exactly one category.
 // A poster (<= 80 KB JPEG) is generated for every video that doesn't have one yet.
-// Compress raw clips first with scripts/encode-video.sh.
+// Import web-optimized MP4s; keep originals outside public/.
 import fs from "fs";
 import path from "path";
 import { execFileSync } from "child_process";
@@ -18,6 +18,16 @@ const workDir = path.join(publicDir, "videos", "work");
 const postersDir = path.join(publicDir, "posters", "work");
 const outPath = path.join(rootDir, "src", "data", "portfolio.json");
 const MAX_POSTER_BYTES = 80 * 1024;
+const previous = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, "utf8")) : {};
+
+// Keep hand-curated captions, durations and ordering when media is rescanned.
+function preserveMetadata(items, type) {
+  const existing = previous[type] || [];
+  const byId = new Map(existing.map((item) => [item.id, item]));
+  const order = new Map(existing.map((item, index) => [item.id, index]));
+  return items.map((item) => ({ ...byId.get(item.id), ...item, caption: byId.get(item.id)?.caption || item.caption }))
+    .sort((a, b) => (order.get(a.id) ?? Infinity) - (order.get(b.id) ?? Infinity));
+}
 
 fs.mkdirSync(postersDir, { recursive: true });
 
@@ -83,11 +93,13 @@ function scanBeforeAfter() {
     });
 }
 
-const shortForm = scanCategory("short-form", "shortForm");
-const ads = scanCategory("ads", "ads");
-const beforeAfter = scanBeforeAfter();
+const shortForm = preserveMetadata(scanCategory("short-form", "shortForm"), "shortForm");
+const ads = preserveMetadata(scanCategory("ads", "ads"), "ads");
+const beforeAfter = preserveMetadata(scanBeforeAfter(), "beforeAfter");
+// YouTube entries are editorial links and cannot be rediscovered from local MP4s.
+const longForm = previous.longForm || [];
 
-fs.writeFileSync(outPath, JSON.stringify({ shortForm, ads, beforeAfter }, null, 2) + "\n");
+fs.writeFileSync(outPath, JSON.stringify({ shortForm, longForm, ads, beforeAfter }, null, 2) + "\n");
 
 console.log(
   `portfolio.json: ${shortForm.length} short-form, ${ads.length} ads, ${beforeAfter.length} before/after pairs`

@@ -14,6 +14,7 @@ const nextConfig = {
   outputFileTracingExcludes: {
     '*': [
       './_inbox/**/*',
+      './.inbox/**/*',
       './docs/**/*',
     ],
   },

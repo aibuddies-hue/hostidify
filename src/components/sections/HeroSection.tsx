@@ -11,9 +11,9 @@ export function HeroSection() {
   const { openAuditModal } = useAuditModal();
 
   return (
-    <section className="relative min-h-[86vh] md:min-h-[92vh] flex items-center justify-center pt-10 pb-16 md:pt-20 md:pb-28 overflow-hidden bg-[#0A0A0F]">
+    <section className="hero-section relative isolate flex items-center justify-center overflow-hidden bg-[#0A0A0F]">
       {/* Background Cinematic Hero Light Field & Ambient Volumetric Glow */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div aria-hidden="true" className="hero-atmosphere absolute inset-0 pointer-events-none overflow-hidden">
         {/* Soft centered multi-color aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[850px] md:w-[1000px] h-[450px] sm:h-[650px] bg-gradient-to-tr from-[#3B6BFF]/20 via-[#A24BFF]/25 to-[#FF3D8B]/20 rounded-full blur-[110px] sm:blur-[140px] pointer-events-none" />
 
@@ -21,10 +21,10 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] max-w-[1300px] aspect-[16/9] opacity-30 mix-blend-screen filter blur-xl">
           <Image
             src="/generated/hero-light-field.jpg"
-            alt="Cinematic Light Field"
+            alt=""
             fill
             className="object-cover"
-            priority
+            sizes="(max-width: 768px) 100vw, 1300px"
           />
         </div>
 
@@ -32,10 +32,10 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/60 via-transparent to-[#0A0A0F]" />
       </div>
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 w-full flex flex-col items-center text-center relative z-10">
+      <div className="hero-content container-page w-full flex flex-col items-center text-center relative z-10">
         {/* Top Attention Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-white/[0.06] border border-white/[0.12] backdrop-blur-md mb-6 sm:mb-8 shadow-lg shadow-purple-500/10 hover:border-purple-500/40 transition-all">
-          <span className="w-2 h-2 rounded-full bg-[#A24BFF] animate-pulse shrink-0" />
+        <div className="hero-badge inline-flex items-center gap-2.5 px-4 py-2 sm:px-5 rounded-full border border-white/[0.12] mb-6 sm:mb-8">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C59AFF] shrink-0" />
           <span className="text-xs sm:text-sm font-semibold tracking-wide text-white/95">
             ⚡ 24-Hour Turnaround · First Video Edited Free · India &amp; Dubai
           </span>
@@ -44,7 +44,7 @@ export function HeroSection() {
         {/* Centered Main Hero Block */}
         <div className="max-w-[940px] flex flex-col items-center">
           {/* Main Headline (Prominent, High-Contrast Typography) */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tight text-white leading-[1.08] mb-5 sm:mb-7">
+          <h1 className="hero-title font-extrabold tracking-tight text-white mb-5 sm:mb-7">
             We turn your raw footage into high-converting short-form videos in{" "}
             <span className="text-brand-gradient whitespace-nowrap">24 hours.</span>
           </h1>
@@ -62,7 +62,7 @@ export function HeroSection() {
               ctaPosition="hero"
               magnetic={true}
               onClick={() => openAuditModal("hero")}
-              className="w-full sm:w-auto text-base sm:text-lg px-9 py-4 sm:px-10 sm:py-4.5 flex items-center justify-center gap-2.5 font-bold rounded-full shadow-2xl shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 border border-white/20"
+              className="hero-cta w-full sm:w-auto text-sm sm:text-base px-5 sm:px-9 py-4 gap-2.5 font-bold"
             >
               <span>Book My Free Content Audit</span>
               <ArrowRight className="w-5 h-5 ml-1" />
@@ -89,7 +89,7 @@ export function HeroSection() {
           </p>
 
           {/* Trust Value Badges */}
-          <div className="mt-10 sm:mt-12 pt-8 border-t border-white/[0.08] w-full max-w-[700px] grid grid-cols-3 gap-3 text-center">
+          <div className="hero-trust mt-10 sm:mt-12 pt-6 border-t border-white/[0.08] w-full max-w-[700px] grid grid-cols-3 gap-2 sm:gap-3 text-center">
             <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/[0.02]">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white mb-0.5">
                 <Clock className="w-3.5 h-3.5 text-[#A24BFF]" />

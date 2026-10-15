@@ -1,14 +1,18 @@
 import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export function Logo({ priority, className }: { priority?: boolean; className?: string }) {
   return (
     <a href="/" className={cn("flex items-center group", className)}>
-      <img
+      <Image
         src="/brand/logo-transparent.png"
         alt="Host Editify"
-        style={{ height: "48px", width: "auto", objectFit: "contain", display: "block" }}
-        className="transition-transform duration-200 group-hover:scale-105"
+        width={80}
+        height={52}
+        sizes="80px"
+        priority={priority}
+        className="h-12 w-20 object-contain transition-transform duration-200 group-hover:scale-105"
       />
     </a>
   );

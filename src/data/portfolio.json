@@ -1,6 +1,14 @@
 {
   "shortForm": [
     {
+      "id": "shortForm-luxury-real-estate",
+      "type": "shortForm",
+      "videoUrl": "/videos/work/short-form/luxury-real-estate.mp4",
+      "posterUrl": "/posters/work/luxury-real-estate.jpg",
+      "caption": "Luxury Real Estate Walkthrough",
+      "duration": 85
+    },
+    {
       "id": "shortForm-sequence-02",
       "type": "shortForm",
       "videoUrl": "/videos/work/short-form/sequence-02.mp4",
@@ -13,20 +21,6 @@
       "videoUrl": "/videos/work/short-form/ai-cinematic-reel.mp4",
       "posterUrl": "/posters/work/ai-cinematic-reel.jpg",
       "caption": "AI Cinematic Reel"
-    },
-    {
-      "id": "shortForm-founder-reel-1",
-      "type": "shortForm",
-      "videoUrl": "/videos/work/short-form/founder-reel-1.mp4",
-      "posterUrl": "/posters/work/founder-reel-1.jpg",
-      "caption": "Founder Story Reel"
-    },
-    {
-      "id": "shortForm-founder-reel-2",
-      "type": "shortForm",
-      "videoUrl": "/videos/work/short-form/founder-reel-2.mp4",
-      "posterUrl": "/posters/work/founder-reel-2.jpg",
-      "caption": "Brand Hook Reel"
     },
     {
       "id": "shortForm-founder-reel-3",
@@ -55,6 +49,30 @@
     }
   ],
   "ads": [
+    {
+      "id": "ads-ai-skills-ad-01",
+      "type": "ads",
+      "videoUrl": "/videos/work/ads/ai-skills-ad-01.mp4",
+      "posterUrl": "/posters/work/ai-skills-ad-01.jpg",
+      "caption": "AI Skills · Ad 01",
+      "duration": 37
+    },
+    {
+      "id": "ads-ai-workshop-ad-03",
+      "type": "ads",
+      "videoUrl": "/videos/work/ads/ai-workshop-ad-03.mp4",
+      "posterUrl": "/posters/work/ai-workshop-ad-03.jpg",
+      "caption": "AI Workshop · Ad 03",
+      "duration": 24
+    },
+    {
+      "id": "ads-ai-industry-ad-06",
+      "type": "ads",
+      "videoUrl": "/videos/work/ads/ai-industry-ad-06.mp4",
+      "posterUrl": "/posters/work/ai-industry-ad-06.jpg",
+      "caption": "AI Industry · Ad 06",
+      "duration": 49
+    },
     {
       "id": "ads-ai-product-ad",
       "type": "ads",

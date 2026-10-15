@@ -13,11 +13,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const base =
-  "inline-flex h-[52px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full px-7 text-[15px] font-semibold text-white transition-[transform,box-shadow,background-color,border-color] duration-200 cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A24BFF]";
+  "button inline-flex min-h-[52px] shrink-0 items-center justify-center gap-2 rounded-full px-7 py-3 text-[15px] font-semibold text-white transition-[transform,box-shadow,background-color,border-color] duration-200 cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C59AFF]";
 
 const variants = {
   primary:
-    "bg-brand-gradient shadow-[0_8px_28px_-8px_rgba(162,75,255,0.6)] hover:shadow-[0_10px_34px_-6px_rgba(162,75,255,0.75)] hover:-translate-y-px active:translate-y-0",
+    "button-primary bg-brand-gradient hover:-translate-y-px active:translate-y-0",
   secondary:
     "bg-transparent border border-white/20 hover:border-white/45 hover:bg-white/[0.04]",
 };

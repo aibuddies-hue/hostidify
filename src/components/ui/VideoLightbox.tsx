@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
 import { ArrowRight, X } from "lucide-react";
 import { Button } from "./Button";
 import { trackVideoEngagement } from "@/lib/tracking";
+import { MediaDialog } from "./MediaDialog";
 
 export interface PortfolioVideoItem {
   id: string;
@@ -13,6 +13,7 @@ export interface PortfolioVideoItem {
   posterUrl: string;
   caption?: string;
   youtubeId?: string;
+  duration?: number;
 }
 
 interface VideoLightboxProps {
@@ -31,11 +32,6 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
   useEffect(() => {
     if (!video) return;
     trackedHalf.current = false;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     if (!isYouTube) {
       const el = videoRef.current;
       if (el) {
@@ -46,14 +42,7 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
           el.play().catch(() => {});
         });
       }
-    } else {
-      trackVideoEngagement(video.id, 50);
     }
-
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
   }, [video, onClose, isYouTube]);
 
   if (!video) return null;
@@ -68,18 +57,12 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
   };
 
   // Portal to <body> so it stacks above the sticky navbar
-  return createPortal(
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Video player"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
-      onClick={onClose}
-    >
+  return (
+    <MediaDialog open={Boolean(video)} label={video.caption || "Video player"} onClose={onClose}>
       <div
         className={
-          "relative flex max-h-full w-full flex-col items-center gap-4 " +
-          (isYouTube ? "max-w-3xl" : "max-w-[400px]")
+          "video-dialog-content relative " +
+          (isYouTube ? "is-landscape" : "")
         }
         onClick={(e) => e.stopPropagation()}
       >
@@ -104,8 +87,9 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
               poster={video.posterUrl}
               controls
               playsInline
+              preload="metadata"
               onTimeUpdate={onTimeUpdate}
-              className="block max-h-[calc(100svh-140px)] w-full object-contain"
+              className="block w-full object-contain"
             />
           )}
 
@@ -113,7 +97,8 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
             type="button"
             onClick={onClose}
             aria-label="Close video"
-            className="absolute top-3 right-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/70 text-white transition-colors hover:bg-white/20 z-10"
+            autoFocus
+            className="absolute top-3 right-3 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-black/80 text-white transition-colors hover:bg-white/20 z-10"
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
@@ -130,7 +115,6 @@ export function VideoLightbox({ video, onClose, onBookClick }: VideoLightboxProp
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Button>
       </div>
-    </div>,
-    document.body
+    </MediaDialog>
   );
 }

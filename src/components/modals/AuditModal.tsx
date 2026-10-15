@@ -176,6 +176,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
   // Scroll lock, focus trap, Escape
   useEffect(() => {
     if (!isOpen) return;
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const focusTimeout = setTimeout(() => {
@@ -204,6 +205,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
       clearTimeout(focusTimeout);
       document.body.style.overflow = originalOverflow;
       window.removeEventListener("keydown", onKey);
+      trigger?.focus({ preventScroll: true });
     };
   }, [isOpen, onClose]);
 
@@ -299,6 +301,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/80 backdrop-blur-sm sm:items-center sm:p-4"
+      data-lenis-prevent
       onClick={onClose}
     >
       <div
@@ -315,7 +318,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+          className="absolute top-4 right-4 z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
         >
           <X className="h-5 w-5" aria-hidden />
         </button>

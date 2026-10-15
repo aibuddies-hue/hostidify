@@ -69,8 +69,8 @@ export const metadata: Metadata = {
     images: ["/generated/og-image.png"],
   },
   icons: {
-    icon: "/brand/icon.png",
-    apple: "/brand/icon.png",
+    icon: "/favicon.ico",
+    apple: "/brand/logo-transparent.png",
   },
 };
 
@@ -80,13 +80,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  const enableVercelAnalytics = process.env.VERCEL === "1";
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Host Editify",
     url: "https://hosteditify.com",
-    logo: "https://hosteditify.com/brand/icon.png",
+    logo: "https://hosteditify.com/brand/logo-transparent.png",
     founder: {
       "@type": "Person",
       name: site.founder.name,
@@ -142,8 +143,8 @@ export default function RootLayout({
           </AuditModalProvider>
         </SmoothScrollProvider>
 
-        <Analytics />
-        <SpeedInsights />
+        {enableVercelAnalytics && <Analytics />}
+        {enableVercelAnalytics && <SpeedInsights />}
       </body>
     </html>
   );

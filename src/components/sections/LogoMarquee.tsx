@@ -8,6 +8,10 @@ interface Brand {
   logo?: string;
   /** Whether to show text name alongside logo. Default true if no logo. */
   showName?: boolean;
+  presentation?: string;
+  dark?: boolean;
+  width?: number;
+  height?: number;
 }
 
 const brands: Brand[] = brandsData;
@@ -16,18 +20,19 @@ function BrandTile({ brand }: { brand: Brand }) {
   const showText = brand.showName ?? !brand.logo;
 
   return (
-    <div className="flex h-[56px] min-w-[130px] shrink-0 items-center justify-center gap-2.5 rounded-[16px] bg-white px-4 py-2 shadow-sm transition-transform hover:scale-[1.03] md:h-[68px] md:min-w-[160px] md:px-5">
+    <div className={`brand-tile ${brand.dark ? "brand-tile-dark" : ""}`}>
       {brand.logo ? (
         <Image
           src={brand.logo}
           alt={brand.name}
-          width={120}
-          height={44}
-          className="max-h-9 w-auto object-contain md:max-h-11"
+          width={brand.width || (brand.presentation === "square" ? 164 : 160)}
+          height={brand.height || (brand.presentation === "square" ? 164 : 70)}
+          sizes="(max-width: 767px) 160px, 176px"
+          className={brand.presentation === "square" ? "brand-logo-square" : brand.presentation === "portrait" ? "brand-logo-portrait" : brand.presentation === "symbol" ? "brand-logo-symbol" : showText ? "brand-logo-with-name" : "brand-logo"}
         />
       ) : null}
       {showText && (
-        <span className="text-center text-[13px] font-bold tracking-tight text-[#14141C] md:text-sm whitespace-nowrap">
+        <span className="text-center text-[13px] font-bold tracking-tight text-[#263843] whitespace-nowrap">
           {brand.name}
         </span>
       )}
@@ -45,28 +50,11 @@ export function LogoMarquee() {
           Trusted by brands we edit for
         </h2>
 
-        {/* Desktop: one centred row */}
-        <div className="hidden flex-wrap items-center justify-center gap-6 md:flex">
+        {/* Every brand stays visible: two columns on phones, six on wide screens. */}
+        <div className="brand-grid">
           {brands.map((b) => (
             <BrandTile key={b.name} brand={b} />
           ))}
-        </div>
-      </div>
-
-      {/* Phone: slow auto-scroll (static, swipeable row when reduced motion is on) */}
-      <div className="relative md:hidden">
-        <div className="no-scrollbar overflow-hidden motion-reduce:overflow-x-auto">
-          <div className="animate-marquee flex w-max motion-reduce:pl-5">
-            {[...brands, ...brands].map((b, i) => (
-              <div
-                key={`${b.name}-${i}`}
-                aria-hidden={i >= brands.length}
-                className={i >= brands.length ? "pr-4 motion-reduce:hidden" : "pr-4"}
-              >
-                <BrandTile brand={b} />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

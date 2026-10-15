@@ -40,7 +40,7 @@ function PlanCard({ plan }: { plan: Plan }) {
     <div
       className={cn(
         "card flex h-full flex-col",
-        plan.featured && "border-[#A24BFF]/40 shadow-[0_0_60px_-24px_rgba(162,75,255,0.55)]"
+        plan.featured && "plan-featured"
       )}
     >
       <div className="flex items-center justify-between gap-3">

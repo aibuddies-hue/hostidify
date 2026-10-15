@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Award, X } from "lucide-react";
 import rawReviews from "@/data/reviews.json";
+import { MediaDialog } from "@/components/ui/MediaDialog";
 
 export interface ReviewItem {
   id: string;
@@ -21,16 +22,6 @@ export function ProofSection() {
     return null;
   }
 
-  // Handle Escape key to close review lightbox
-  useEffect(() => {
-    if (!activeReview) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveReview(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeReview]);
-
   return (
     <section id="reviews-section" className="relative py-20 sm:py-24 md:py-28 bg-[#0A0A0F] overflow-hidden">
       {/* Background ambient glow */}
@@ -38,14 +29,14 @@ export function ProofSection() {
 
       <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-[720px] mx-auto mb-12 sm:mb-16">
+        <div className="section-header">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="px-3.5 py-1 rounded-full text-xs uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 font-semibold">
               <Award className="w-3.5 h-3.5" />
               <span>Real Client Feedback</span>
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+          <h2 className="type-h2 text-white mb-4">
             What our clients say.
           </h2>
           <p className="text-sm sm:text-base text-[#A0A0B0] max-w-[620px] mx-auto">
@@ -56,10 +47,12 @@ export function ProofSection() {
         {/* 1 Row Grid on Tablet & Desktop (All 3 in one line, no awkward empty spots!) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
           {reviews.map((rev) => (
-            <div
+            <button
               key={rev.id}
+              type="button"
+              aria-label={`Expand ${rev.business || rev.name || "client"} review`}
               onClick={() => setActiveReview(rev)}
-              className="rounded-2xl bg-[#14141C] border border-white/10 hover:border-[#A24BFF]/50 p-3 sm:p-3.5 overflow-hidden cursor-pointer hover:-translate-y-1.5 transition-all duration-300 shadow-xl shadow-black/40 flex flex-col justify-between group"
+              className="rounded-2xl bg-[#14141C] border border-white/10 hover:border-[#A24BFF]/50 p-3 sm:p-3.5 overflow-hidden cursor-pointer motion-safe:hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-black/20 flex flex-col justify-between text-left group"
             >
               {/* WhatsApp Screenshot Container: Fixed height with object-contain so NO cropping happens */}
               <div className="relative w-full h-[320px] sm:h-[350px] md:h-[370px] bg-[#0A0A10] rounded-xl flex items-center justify-center p-2.5 overflow-hidden border border-white/[0.04]">
@@ -95,22 +88,20 @@ export function ProofSection() {
                   </p>
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
 
       {/* Tap to View Full Size Modal / Lightbox */}
       {activeReview && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
-          onClick={() => setActiveReview(null)}
-        >
+        <MediaDialog open={Boolean(activeReview)} label="Client review" onClose={() => setActiveReview(null)}>
           <button
             type="button"
             onClick={() => setActiveReview(null)}
             className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer z-10"
             aria-label="Close review"
+            autoFocus
           >
             <X className="w-5 h-5" />
           </button>
@@ -132,7 +123,7 @@ export function ProofSection() {
               </p>
             )}
           </div>
-        </div>
+        </MediaDialog>
       )}
     </section>
   );

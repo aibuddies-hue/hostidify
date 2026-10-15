@@ -15,7 +15,7 @@ export function BookingSection({ alt = false }: { alt?: boolean }) {
   return (
     <section id="booking-section" className={cn("section relative overflow-hidden text-center", alt && "section-alt")}>
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-15">
-        <Image src="/generated/dubai-night-mood.jpg" alt="" fill className="object-cover" />
+        <Image src="/generated/dubai-night-mood.jpg" alt="" fill sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)] via-transparent to-[var(--color-bg)]" />
       </div>
 

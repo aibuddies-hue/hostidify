@@ -16,12 +16,12 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative py-16 sm:py-20 md:py-28 overflow-hidden",
-        alt ? "bg-[#0E0E17]" : "bg-[#0A0A0F]",
+        "section relative overflow-hidden",
+        alt && "section-alt",
         className
       )}
     >
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">{children}</div>
+      <div className="container-page">{children}</div>
     </section>
   );
 }
@@ -36,8 +36,8 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("mb-10 sm:mb-14 text-center max-w-[720px] mx-auto", className)}>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+    <div className={cn("section-header", className)}>
+      <h2 className="type-h2 text-white mb-4">
         {title}
       </h2>
       {sub && <div className="text-sm sm:text-base text-[#A0A0B0] leading-relaxed">{sub}</div>}
