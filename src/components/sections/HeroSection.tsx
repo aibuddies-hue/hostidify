@@ -4,6 +4,7 @@ import React from "react";
 import { ArrowRight, Clock, ShieldCheck, Video } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAuditModal } from "@/context/AuditModalContext";
+import { site } from "@/lib/site.config";
 
 export function HeroSection() {
   const { openAuditModal } = useAuditModal();
@@ -67,7 +68,7 @@ export function HeroSection() {
           <p className="text-xs sm:text-sm text-white/70">
             Prefer direct scheduling?{" "}
             <a
-              href="https://cal.com/hosteditify-n0dlbr/free-content-audit"
+              href={site.links.calcomUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#A24BFF] hover:text-[#B86BFF] underline font-semibold transition-colors inline-flex items-center gap-1"

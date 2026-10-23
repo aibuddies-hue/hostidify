@@ -33,6 +33,15 @@ export function BookingSection({ alt = false }: { alt?: boolean }) {
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Button>
 
+        <a
+          href={site.links.calcomUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="type-small mt-4 font-medium text-[#A24BFF] hover:underline"
+        >
+          Prefer to schedule directly? Pick a time on Cal.com →
+        </a>
+
         {sampleEditHref && (
           <a
             href={sampleEditHref}

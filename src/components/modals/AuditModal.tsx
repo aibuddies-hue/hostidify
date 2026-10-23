@@ -579,6 +579,14 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
                   }}
                 />
               </div>
+              <a
+                href={site.links.calcomUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-full border border-white/15 px-5 text-sm font-semibold text-white transition-colors hover:border-[#C59AFF] hover:text-[#E5D5FF]"
+              >
+                Open the scheduling page in a new tab
+              </a>
             </div>
           ) : (
             <UnqualifiedPath name={result.data.name} businessName={result.data.businessName} />

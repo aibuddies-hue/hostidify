@@ -438,8 +438,6 @@ html { scroll-behavior: smooth; }
 .client-brands { padding-block: 28px; overflow: hidden; }
 .client-brands-heading { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
 .client-brands-heading h2 { margin: 0; text-align: center; }
-.client-brands-toggle { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border: 1px solid #ffffff20; border-radius: 50%; color: #c4bed1; cursor: pointer; background: #ffffff05; }
-.client-brands-toggle:hover { background: #ffffff10; color: white; }
 .client-brands-window { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-mask-image: linear-gradient(90deg, transparent, black 24px, black calc(100% - 24px), transparent); mask-image: linear-gradient(90deg, transparent, black 24px, black calc(100% - 24px), transparent); }
 .client-brands-window::-webkit-scrollbar { display: none; }
 .client-brands-track { display: flex; width: max-content; animation: client-logo-scroll 58s linear infinite; }
@@ -479,7 +477,7 @@ html { scroll-behavior: smooth; }
 }
 @media (prefers-reduced-motion: reduce) {
   .client-brands-track { animation: none; }
-  .client-brands-copy, .client-brands-toggle { display: none; }
+  .client-brands-copy { display: none; }
   .client-brands-group { padding-inline: 20px; }
 }
 
@@ -487,4 +485,26 @@ html { scroll-behavior: smooth; }
   .section { padding-block: 56px; }
   .portfolio-tab { min-height: 44px; }
   .client-brands-window:focus-visible { outline-offset: -2px; }
+}
+
+/* Two compact, always-moving client rows. The alternating direction keeps the rail lively without controls. */
+.client-brands { padding-block: 24px; }
+.client-brands-heading { margin-bottom: 14px; }
+.client-brands-rows { display: grid; gap: 10px; }
+.client-brands-window { overflow: hidden; }
+.client-brands-track { animation-duration: 48s; animation-play-state: running !important; }
+.client-brands-track-reverse { animation-direction: reverse; }
+.client-brands-window:hover .client-brands-track,
+.client-brands-window:focus .client-brands-track { animation-play-state: running !important; }
+.client-logo-tile { width: 144px; flex-basis: 144px; height: 80px; }
+@media (max-width: 639px) {
+  .client-brands { padding-block: 18px; }
+  .client-brands-heading { margin-bottom: 10px; }
+  .client-brands-heading h2 { font-size: 16px; }
+  .client-brands-rows { gap: 8px; }
+  .client-logo-tile { width: 108px; flex-basis: 108px; height: 64px; padding: 7px; border-radius: 9px; }
+  .client-logo-square .client-logo-image { width: 100px; height: 100px; }
+  .client-logo-portrait .client-logo-image, .client-logo-symbol .client-logo-image { max-height: 42px; }
+  .client-logo-mark .client-logo-image { width: 48px; height: 48px; }
+  .client-logo-namo .client-logo-image { width: 100px; height: 100px; }
 }
