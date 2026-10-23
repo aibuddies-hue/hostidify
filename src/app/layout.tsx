@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/styles/globals.css";
@@ -13,16 +13,16 @@ import { StickyMobileCta } from "@/components/global/StickyMobileCta";
 import { AuditModalProvider } from "@/context/AuditModalContext";
 import { AuditModalContainer } from "@/components/modals/AuditModalContainer";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const inter = localFont({
+  src: "../../public/fonts/inter-latin.woff2",
+  weight: "100 900",
   variable: "--font-inter",
   display: "swap",
 });
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["700", "800"],
+const montserrat = localFont({
+  src: "../../public/fonts/montserrat-latin.woff2",
+  weight: "100 900",
   variable: "--font-montserrat",
   display: "swap",
 });

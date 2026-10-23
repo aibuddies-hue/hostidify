@@ -342,7 +342,6 @@
 }
 .portfolio-card:hover .portfolio-play { background: rgba(105,52,181,0.85); transform: scale(1.06); }
 .portfolio-card:hover { border-color: rgba(197,154,255,0.6); }
-.portfolio-caption { padding: 56px 18px 20px; font-size: 14px; line-height: 1.45; }
 .portfolio-controls { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 12px; }
 .carousel-arrow {
   display: flex;
@@ -434,3 +433,58 @@ html { scroll-behavior: smooth; }
     radial-gradient(ellipse at 65% 55%, #913a9a24, transparent 45%);
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Compact client rail: one row, stable dimensions and compositor-only motion. */
+.client-brands { padding-block: 28px; overflow: hidden; }
+.client-brands-heading { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+.client-brands-heading h2 { margin: 0; text-align: center; }
+.client-brands-toggle { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border: 1px solid #ffffff20; border-radius: 50%; color: #c4bed1; cursor: pointer; background: #ffffff05; }
+.client-brands-toggle:hover { background: #ffffff10; color: white; }
+.client-brands-window { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-mask-image: linear-gradient(90deg, transparent, black 24px, black calc(100% - 24px), transparent); mask-image: linear-gradient(90deg, transparent, black 24px, black calc(100% - 24px), transparent); }
+.client-brands-window::-webkit-scrollbar { display: none; }
+.client-brands-track { display: flex; width: max-content; animation: client-logo-scroll 58s linear infinite; }
+.client-brands-group { display: flex; flex: none; gap: 16px; list-style: none; margin: 0; padding: 0 16px 0 0; }
+.client-logo-tile { position: relative; width: 160px; height: 88px; flex: 0 0 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; overflow: hidden; border: 1px solid #ffffff16; border-radius: 12px; background: #f7f7f7; padding: 12px; }
+.client-logo-image { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.client-logo-name { position: relative; font-size: 10px; font-weight: 650; line-height: 1.2; color: #263843; white-space: nowrap; }
+.client-logo-dark { background: #050505; }
+.client-logo-portrait .client-logo-image, .client-logo-symbol .client-logo-image { max-height: 58px; width: auto; }
+.client-logo-square .client-logo-image { position: absolute; width: 130px; height: 130px; max-width: none; }
+.client-logo-golden { background: #032a49; padding: 0; }
+.client-logo-golden .client-logo-image { object-fit: cover; transform: scale(2.3); }
+.client-logo-tableful { padding: 0; }
+.client-logo-tableful .client-logo-image { object-fit: cover; }
+.client-logo-sabrosa { padding: 0; }
+.client-logo-sabrosa .client-logo-image { object-fit: cover; transform: scale(1.8); }
+.client-logo-namo { background: #eae4ce; padding: 0; }
+.client-logo-namo .client-logo-image { width: 120px; max-width: none; height: 120px; flex: none; object-fit: cover; transform: translateY(20px); }
+.client-logo-mp { padding: 5px 10px; background: white; }
+.client-logo-mark { background: #101014; }
+.client-logo-mark .client-logo-image { width: 64px; height: 64px; }
+.client-brands-window[data-paused="true"] .client-brands-track, .client-brands-window:focus .client-brands-track { animation-play-state: paused; }
+@media (hover: hover) { .client-brands-window:hover .client-brands-track { animation-play-state: paused; } }
+@keyframes client-logo-scroll { to { transform: translateX(-50%); } }
+@media (max-width: 639px) {
+  .client-brands { padding-block: 22px; }
+  .client-brands-heading { gap: 8px; margin-bottom: 14px; }
+  .client-brands-heading h2 { font-size: 17px; line-height: 1.4; }
+  .client-brands-group { gap: 12px; padding-right: 12px; }
+  .client-logo-tile { width: 124px; flex-basis: 124px; height: 76px; padding: 9px; border-radius: 10px; }
+  .client-logo-name { font-size: 9px; }
+  .client-logo-square .client-logo-image { width: 118px; height: 118px; }
+  .client-logo-portrait .client-logo-image, .client-logo-symbol .client-logo-image { max-height: 48px; }
+  .client-logo-golden, .client-logo-tableful, .client-logo-sabrosa, .client-logo-namo { padding: 0; }
+  .client-logo-mp { padding: 4px 8px; }
+  .client-logo-mark .client-logo-image { width: 56px; height: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .client-brands-track { animation: none; }
+  .client-brands-copy, .client-brands-toggle { display: none; }
+  .client-brands-group { padding-inline: 20px; }
+}
+
+@media (max-width: 639px) {
+  .section { padding-block: 56px; }
+  .portfolio-tab { min-height: 44px; }
+  .client-brands-window:focus-visible { outline-offset: -2px; }
+}

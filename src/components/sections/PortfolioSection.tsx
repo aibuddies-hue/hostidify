@@ -124,13 +124,13 @@ export function PortfolioSection() {
             key={item.id}
             type="button"
             onClick={() => setSelected(item)}
-            aria-label={`Play ${item.caption || "video"}`}
+            aria-label="Play portfolio video"
             className={`portfolio-card group ${item.type === "longForm" ? "portfolio-card-long" : ""}`}
           >
             {/* The MP4/YouTube player is created only after the visitor presses play. */}
             <Image
               src={item.posterUrl}
-              alt={item.caption || "Video poster"}
+              alt="Portfolio video preview"
               sizes={item.type === "longForm" ? "(max-width: 639px) 82vw, 400px" : "(max-width: 639px) 72vw, 260px"}
               loading="lazy"
               decoding="async"
@@ -142,7 +142,6 @@ export function PortfolioSection() {
               <span className="portfolio-play"><Play className="ml-0.5 h-5 w-5 fill-white" aria-hidden /></span>
             </span>
             {item.duration && <span className="media-duration" aria-hidden>{Math.floor(item.duration / 60)}:{String(item.duration % 60).padStart(2, "0")}</span>}
-            {item.caption && <span className="portfolio-caption absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-left font-semibold text-white">{item.caption}</span>}
           </button>
         ))}
       </div>

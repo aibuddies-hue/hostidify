@@ -39,5 +39,68 @@
     "dark": true,
     "width": 720,
     "height": 241
+  },
+  {
+    "name": "Golden Key",
+    "logo": "/logos/clients/golden-key.webp",
+    "treatment": "golden",
+    "dark": true,
+    "width": 840,
+    "height": 594,
+    "showName": false
+  },
+  {
+    "name": "MP Fertility Center",
+    "logo": "/logos/clients/mp-fertility.webp",
+    "treatment": "mp",
+    "dark": false,
+    "width": 640,
+    "height": 598,
+    "showName": false
+  },
+  {
+    "name": "Client brand symbol",
+    "logo": "/logos/clients/partner-symbol.webp",
+    "treatment": "mark",
+    "dark": true,
+    "width": 640,
+    "height": 640,
+    "showName": false
+  },
+  {
+    "name": "Tableful",
+    "logo": "/logos/clients/tableful.webp",
+    "treatment": "tableful",
+    "dark": true,
+    "width": 418,
+    "height": 418,
+    "showName": false
+  },
+  {
+    "name": "Sabrosa Cafe & Gallery",
+    "logo": "/logos/clients/sabrosa.webp",
+    "treatment": "sabrosa",
+    "dark": true,
+    "width": 640,
+    "height": 640,
+    "showName": false
+  },
+  {
+    "name": "ITC Hotels",
+    "logo": "/logos/clients/itc-hotels.webp",
+    "treatment": "default",
+    "dark": false,
+    "width": 640,
+    "height": 344,
+    "showName": false
+  },
+  {
+    "name": "Namo Homes",
+    "logo": "/logos/clients/namo-homes.webp",
+    "treatment": "namo",
+    "dark": false,
+    "width": 640,
+    "height": 640,
+    "showName": false
   }
 ]
