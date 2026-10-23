@@ -79,13 +79,6 @@
       "videoUrl": "/videos/work/ads/ai-product-ad.mp4",
       "posterUrl": "/posters/work/ai-product-ad.jpg",
       "caption": "AI Product Showcase"
-    },
-    {
-      "id": "ads-motion-graphics-ad",
-      "type": "ads",
-      "videoUrl": "/videos/work/ads/motion-graphics-ad.mp4",
-      "posterUrl": "/posters/work/motion-graphics-ad.jpg",
-      "caption": "High-Paced Motion Ad"
     }
   ],
   "beforeAfter": []

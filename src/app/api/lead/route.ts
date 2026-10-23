@@ -128,16 +128,17 @@ export async function POST(req: NextRequest) {
   }
 
   if (n8nResult.status === "rejected" && n8nUrl) {
-    // The webhook failed: keep a copy of the lead in the logs and tell the visitor to retry
+    // A CRM outage must not prevent the visitor from reaching the booking page.
     console.error("[lead] n8n webhook delivery failed");
     try { await logLeadLocally(record, "n8n webhook failed"); } catch { console.error("[lead] private recovery write failed"); }
-    return NextResponse.json({ error: "Could not deliver lead" }, { status: 502 });
   }
 
   const warning =
     !n8nUrl
       ? "CRM delivery is not configured; continue to schedule your audit."
-      : undefined;
+      : n8nResult.status === "rejected"
+        ? "CRM delivery failed; continue to schedule your audit."
+        : undefined;
 
   return NextResponse.json({ success: true, qualified: lead.qualified, eventId, warning });
 }

@@ -4,8 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { ArrowLeft, ArrowRight, Calendar, Send, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Send, X } from "lucide-react";
 import {
   BUDGETS,
   CURRENT_EDITOR,
@@ -19,7 +18,6 @@ import {
 import { site, whatsappLink } from "@/lib/site.config";
 import { captureAndStoreUtm, generateEventId, getStoredUtm, trackPixelEvent } from "@/lib/tracking";
 import { Button } from "@/components/ui/Button";
-import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { cn } from "@/lib/utils";
 
 const countryCodes = [
@@ -122,7 +120,6 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
   const [countryCode, setCountryCode] = useState("+91");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ qualified: boolean; data: LeadFormData } | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -209,27 +206,6 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
     };
   }, [isOpen, onClose]);
 
-  // Cal.com embed: on booking, fire Schedule and go to the thank-you page
-  useEffect(() => {
-    if (!result?.qualified) return;
-    (async () => {
-      const cal = await getCalApi();
-      cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#A24BFF" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-      cal("on", {
-        action: "bookingSuccessful",
-        callback: () => {
-          trackPixelEvent("Schedule", { channel: "cal.com" }, generateEventId());
-          window.location.href = "/thank-you";
-        },
-      });
-    })();
-  }, [result]);
-
   if (!isOpen) return null;
 
   const fullNumber = () => `${countryCode}${(formValues.whatsapp || "").replace(/\D/g, "")}`;
@@ -284,7 +260,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
       try {
         sessionStorage.removeItem(STORAGE_KEY);
       } catch {}
-      setResult({ qualified: confirmedQualified, data: payload });
+      window.location.assign(site.links.calcomUrl);
     } catch (err) {
       console.error("Lead submission failed:", err);
       setSubmitError(
@@ -324,8 +300,7 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
         </button>
 
         <div className="overflow-y-auto p-6 sm:p-8">
-          {!result ? (
-            <>
+          <>
               <div className="mb-6 pr-10">
                 <h3 id="audit-modal-title" className="type-h3 text-white">
                   Claim your free content audit
@@ -556,97 +531,9 @@ export function AuditModal({ isOpen, onClose }: AuditModalProps) {
                   </a>
                 </div>
               )}
-            </>
-          ) : result.qualified ? (
-            <div>
-              <div className="mb-4 flex items-center gap-3 border-b border-white/10 pr-10 pb-4">
-                <div className="icon-tile">
-                  <Calendar className="h-6 w-6 text-[#A24BFF]" strokeWidth={1.75} aria-hidden />
-                </div>
-                <h3 id="audit-modal-title" className="type-h3 text-white">
-                  Pick a time for your {site.callMinutes}-minute Google Meet
-                </h3>
-              </div>
-              <div className="min-h-[500px] w-full overflow-hidden rounded-[20px] bg-[#0A0A0F]">
-                <Cal
-                  calLink={site.links.calcom}
-                  style={{ width: "100%", height: "100%", minHeight: "500px", overflow: "scroll" }}
-                  config={{
-                    name: result.data.name,
-                    email: result.data.email,
-                    notes: `Industry: ${result.data.industry} | Editing now: ${result.data.currentEditor} | Budget: ${result.data.budgetRange}`,
-                    theme: "dark",
-                  }}
-                />
-              </div>
-              <a
-                href={site.links.calcomUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-full border border-white/15 px-5 text-sm font-semibold text-white transition-colors hover:border-[#C59AFF] hover:text-[#E5D5FF]"
-              >
-                Open the scheduling page in a new tab
-              </a>
-            </div>
-          ) : (
-            <UnqualifiedPath name={result.data.name} businessName={result.data.businessName} />
-          )}
+          </>
         </div>
       </div>
-    </div>
-  );
-}
-
-function UnqualifiedPath({ name, businessName }: { name: string; businessName: string }) {
-  const href = whatsappLink(
-    `Hi Host Editify, I'm ${name} from ${businessName}. I'd like to claim my free ${site.freeFirstVideoMaxSeconds}-second sample edit.`
-  );
-  const steps = [
-    `Upload one raw clip (up to ${site.freeFirstVideoMaxSeconds}s) to Google Drive or WeTransfer`,
-    href ? "Send us the link on WhatsApp" : `Email the link to ${site.links.email}`,
-    `Get your edited, captioned video back in ${site.deliveryHours} hours`,
-  ];
-
-  return (
-    <div className="py-2 text-center">
-      <div className="icon-tile mx-auto">
-        <Sparkles className="h-6 w-6 text-[#A24BFF]" strokeWidth={1.75} aria-hidden />
-      </div>
-      <h3 id="audit-modal-title" className="type-h3 mt-4 text-white">
-        Let&apos;s start with a free sample edit
-      </h3>
-      <p className="type-small text-muted mx-auto mt-2 max-w-md">
-        Thanks, {name}. For budgets under $500 we recommend starting with one free video (up to{" "}
-        {site.freeFirstVideoMaxSeconds} seconds) first.
-      </p>
-      <ol className="card mx-auto mt-6 flex max-w-md flex-col gap-3 !p-5 text-left">
-        {steps.map((s, i) => (
-          <li key={s} className="type-small flex items-start gap-3 text-white/90">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs font-bold">
-              {i + 1}
-            </span>
-            <span>{s}</span>
-          </li>
-        ))}
-      </ol>
-      {href ? (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-[#25D366] px-7 text-[15px] font-semibold whitespace-nowrap text-white transition-transform hover:-translate-y-px"
-        >
-          <WhatsAppIcon className="h-5 w-5" />
-          Send clip on WhatsApp
-        </a>
-      ) : (
-        <a
-          href={`mailto:${site.links.email}?subject=${encodeURIComponent(`Free sample edit — ${businessName}`)}`}
-          className="bg-brand-gradient mt-6 inline-flex h-[52px] items-center justify-center rounded-full px-7 text-[15px] font-semibold whitespace-nowrap text-white"
-        >
-          Email your clip link
-        </a>
-      )}
     </div>
   );
 }
