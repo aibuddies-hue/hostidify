@@ -109,11 +109,11 @@ export async function POST(req: NextRequest) {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const capiToken = process.env.META_CAPI_TOKEN;
 
-  // Do not report success for production leads without a delivery destination.
-  if (!n8nUrl && process.env.NODE_ENV === "production") {
-    console.error("[lead] delivery webhook is not configured");
-    return NextResponse.json({ error: "Booking is temporarily unavailable. Please try again shortly." }, { status: 503 });
-  }
+  // Cal.com is the booking destination. If the optional CRM webhook is absent,
+  // still let the visitor schedule their call and keep a best-effort recovery log.
+  // Blocking the booking flow here made every production form appear broken when
+  // the CRM environment variable was not configured.
+  if (!n8nUrl) console.error("[lead] delivery webhook is not configured; continuing to booking");
 
   // Wait for every delivery (each capped at 5s) before answering, so nothing is dropped mid-flight
   const [n8nResult, capiResult] = await Promise.allSettled([
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
     console.error("[lead] Meta CAPI delivery failed");
   }
 
-  if (n8nResult.status === "rejected") {
+  if (n8nResult.status === "rejected" && n8nUrl) {
     // The webhook failed: keep a copy of the lead in the logs and tell the visitor to retry
     console.error("[lead] n8n webhook delivery failed");
     try { await logLeadLocally(record, "n8n webhook failed"); } catch { console.error("[lead] private recovery write failed"); }
@@ -135,8 +135,8 @@ export async function POST(req: NextRequest) {
   }
 
   const warning =
-    !n8nUrl && process.env.NODE_ENV !== "production"
-      ? "N8N_LEAD_WEBHOOK_URL is not set: this lead was only written to the server log and .leads/leads.ndjson."
+    !n8nUrl
+      ? "CRM delivery is not configured; continue to schedule your audit."
       : undefined;
 
   return NextResponse.json({ success: true, qualified: lead.qualified, eventId, warning });
